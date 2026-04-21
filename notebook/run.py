@@ -7,7 +7,7 @@ def executa_pipeline():
     print('================================')
     menager = CaptureApiData(url='https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome')
     
-    file_path = 'dadosabertos_'+ menager.path +'.json'
+    file_path = 'dadosabertos_'+ str(menager.path) +'.json'
     menager.path = f'/Volumes/dev/b_bronze/landing/{file_path}'
     
     
