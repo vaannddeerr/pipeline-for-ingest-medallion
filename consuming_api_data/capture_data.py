@@ -26,8 +26,17 @@ class CaptureApiData:
 
     def save_out(self, path:str, response:str):
 
+        archive = datetime.now() + timedelta(hours=-3)
+        archive = str(archive)
+        archive = archive[0:19]
+
+        path = f'{archive}'
+
+        file_path = 'dadosabertos_'+ path +'.json'
+        self.path = f'/Volumes/dev/b_bronze/landing/{file_path}'
+
         if response:
-            with open(path,'w', encoding='utf-8') as outputResponse:
+            with open(self.path,'w', encoding='utf-8') as outputResponse:
                 json.dump(response, outputResponse, indent=4, ensure_ascii=False)
 
             print(f"Local onde o arquivo foi salvo: '{path}'✍️")
