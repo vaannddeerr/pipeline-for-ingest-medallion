@@ -26,12 +26,6 @@ class CaptureApiData:
 
     def save_out(self, path:str, response:str):
 
-        archive = datetime.now() + timedelta(hours=-3)
-        archive = str(archive)
-        archive = archive[0:19]
-
-        path = f'{archive}'
-
         if response:
             with open(path,'w', encoding='utf-8') as outputResponse:
                 json.dump(response, outputResponse, indent=4, ensure_ascii=False)
