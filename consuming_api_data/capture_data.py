@@ -28,7 +28,8 @@ class CaptureApiData:
 
         archive = datetime.now() + timedelta(hours=-3)
         archive = str(archive)
-        archive = archive[0:19]
+        archive = archive[0:10]
+        archive = archive.replace("-", "")
 
         path = f'{archive}'
 
