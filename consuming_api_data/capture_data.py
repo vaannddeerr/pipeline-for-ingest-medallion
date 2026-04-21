@@ -8,6 +8,7 @@ class CaptureApiData:
         self.url = url
         self.response = None
         self.error = None
+        self.path = None
 
     def capture_api(self):
         try:
