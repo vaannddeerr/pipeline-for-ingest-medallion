@@ -1,7 +1,7 @@
 from consuming_api_data.capture_data import CaptureApiData
 
 
-def executa_pipeline(path):
+def executa_pipeline():
     file_path = 'dadosabertos_'+ path +'.json'
     path = f'/Volumes/dev/b_bronze/landing/{file_path}'
     print('🔛Iniciando processamento.🔛')
