@@ -11,6 +11,7 @@ class CaptureApiData:
         self.response = None
         self.error = None
         self.path = None
+        self.df = None
         self.spark = spark_session()
 
     def capture_api(self):
@@ -46,6 +47,24 @@ class CaptureApiData:
             print(f"Local onde o arquivo foi salvo: '{self.path}'✍️")
         else:
             print(f"Não foi possível salvar. Erro: {self.error}")
+
+
+    def read_dataframe(self, is_path:bool=True):
+        if is_path:
+            self.df = self.spark.read.format('json').load(self.path)
+        
+        else:
+            self.df = self.spark.read.table.load()
+
+        print(f"Dados carregados. Linhas: {self.df.count()}🔝")
+        return self.df
+        
+
+
+
+
+
+        
 
     
 
