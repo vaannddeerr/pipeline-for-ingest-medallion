@@ -2,7 +2,7 @@
 import requests
 import json
 from datetime import datetime, timedelta
-from config_spark_session.spark_session import spark_session
+
 
 
 class CaptureApiData:
@@ -12,7 +12,6 @@ class CaptureApiData:
         self.error = None
         self.path = None
         self.df = None
-        self.spark = spark_session()
 
     def capture_api(self):
         try:
@@ -49,16 +48,16 @@ class CaptureApiData:
             print(f"Não foi possível salvar. Erro: {self.error}")
 
 
-    def read_dataframe(self, is_path:bool=True):
-        if is_path:
-            self.df = self.spark.read.format('json').option('multiline',True).load(self.path[:-26]+'*'+'.json')
-            self.df.show()
+    # def read_dataframe(self, is_path:bool=True):
+    #     if is_path:
+    #         self.df = self.spark.read.format('json').option('multiline',True).load(self.path[:-26]+'*'+'.json')
+    #         self.df.show()
         
-        else:
-            self.df = self.spark.read.table.load()
+    #     else:
+    #         self.df = self.spark.read.table.load()
 
-        print(f"Dados carregados. Linhas: {self.df.count()}🔝")
-        return self.df
+    #     print(f"Dados carregados. Linhas: {self.df.count()}🔝")
+    #     return self.df
         
 
 

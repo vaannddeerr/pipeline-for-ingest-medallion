@@ -15,7 +15,7 @@ def executa_pipeline():
     print(f'✔️Arquivo salvo com sucesso')
 
 
-    menager.read_dataframe()
+    
     
 
 
