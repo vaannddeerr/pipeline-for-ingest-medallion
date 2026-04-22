@@ -1,5 +1,5 @@
 from consuming_api_data.capture_data import CaptureApiData
-from generating_table_bronze.create_bronze import create_table_bronze
+
 
 
 def executa_pipeline():
