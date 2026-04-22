@@ -43,7 +43,7 @@ class CaptureApiData:
             with open(self.path,'w', encoding='utf-8') as outputResponse:
                 json.dump(response, outputResponse, indent=4, ensure_ascii=False)
 
-            print(f"Local onde o arquivo foi salvo: '{path}'✍️")
+            print(f"Local onde o arquivo foi salvo: '{self.path}'✍️")
         else:
             print(f"Não foi possível salvar. Erro: {self.error}")
 
