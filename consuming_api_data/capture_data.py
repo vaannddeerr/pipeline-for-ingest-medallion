@@ -52,6 +52,7 @@ class CaptureApiData:
     def read_dataframe(self, is_path:bool=True):
         if is_path:
             self.df = self.spark.read.format('json').load(self.path)
+            selfo.df.show()
         
         else:
             self.df = self.spark.read.table.load()
