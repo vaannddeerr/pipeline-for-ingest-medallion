@@ -51,7 +51,7 @@ class CaptureApiData:
 
     def read_dataframe(self, is_path:bool=True):
         if is_path:
-            self.df = self.spark.read.format('json').option(load(self.path[:-26]+'*'+'.json')
+            self.df = self.spark.read.format('json').option('multiline',True).load(self.path[:-26]+'*'+'.json')
             self.df.show()
         
         else:
