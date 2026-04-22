@@ -2,6 +2,8 @@
 import requests
 import json
 from datetime import datetime, timedelta
+from config_spark_session.spark_session import spark_session
+
 
 class CaptureApiData:
     def __init__(self, url:str):
@@ -9,6 +11,7 @@ class CaptureApiData:
         self.response = None
         self.error = None
         self.path = None
+        self.spark = spark_session()
 
     def capture_api(self):
         try:
