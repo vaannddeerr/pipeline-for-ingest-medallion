@@ -1,4 +1,5 @@
 from consuming_api_data.capture_data import CaptureApiData
+from generating_table_bronze.create_bronze import create_table_bronze
 
 
 def executa_pipeline():
@@ -12,6 +13,10 @@ def executa_pipeline():
 
     menager.save_out(menager.path, resultado)
     print(f'✔️Arquivo salvo com sucesso')
+
+    create_table_bronze(menager.path)
+
+
 
 if __name__=="__main__":
     executa_pipeline()   
