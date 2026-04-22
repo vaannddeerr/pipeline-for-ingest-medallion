@@ -48,16 +48,6 @@ class CaptureApiData:
             print(f"Não foi possível salvar. Erro: {self.error}")
 
 
-    # def read_dataframe(self, is_path:bool=True):
-    #     if is_path:
-    #         self.df = self.spark.read.format('json').option('multiline',True).load(self.path[:-26]+'*'+'.json')
-    #         self.df.show()
-        
-    #     else:
-    #         self.df = self.spark.read.table.load()
-
-    #     print(f"Dados carregados. Linhas: {self.df.count()}🔝")
-    #     return self.df
         
 
 
