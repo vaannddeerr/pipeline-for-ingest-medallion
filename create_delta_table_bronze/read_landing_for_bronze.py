@@ -10,21 +10,19 @@ class CreateTableDelta:
     def read_df(self):
         try:
             path = self.dbutils.fs.ls("/Volumes/dev/b_bronze/landing/")
-            for file in path:
-                nome = file.name
-                file = nome[:]
+            # Lê todos os JSONs da pasta de uma vez
+            self.df = self.spark.read.format('json').option('multiline', True).load(path)
+
+            #Verifica se o DataFrame tem linhas
+            if self.df.isEmpty():
+                raise ValueError("O DataFrame está vazio, nenhum dado foi carregado.")
                 
-                location = f'/Volumes/dev/b_bronze/landing/{file}'
-                self.df = (self.spark.read
-                                    .format('json')
-                                    .option('multiline',True)
-                                    .load(location))
-                
-            print(f"Dados carregados. Linhas: {self.df.count()}🔝")    
+            print(f"Dados carregados. Linhas: {self.df.count()}")
             return self.df
         
-        except:
-              print('Falha ao ler o arquivo, arquivo não encontrado')
+        except Exception as e:
+            print(f"Erro ao ler os dados: {e}")
+            raise e # Isso vai parar o Job no Databricks e mostrar o erro real
     
     def write_table(self, tableName:str):
         """Grava o DataFrame atual como uma tabela Delta."""
