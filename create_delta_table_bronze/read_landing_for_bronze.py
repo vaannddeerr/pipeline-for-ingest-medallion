@@ -1,10 +1,11 @@
 from config_spark.spark_dataset_config import spark_session
 from pyspark.dbutils import DBUtils
+from pyspark.sql.functions import input_file_name
 
 class CreateTableDelta:
     def __init__(self):
         self.df = None
-        self.spark = spark_session
+        self.spark = spark_session()
         self.dbutils = DBUtils(self.spark)
 
     def read_df(self):
@@ -12,6 +13,9 @@ class CreateTableDelta:
             path = self.dbutils.fs.ls("/Volumes/dev/b_bronze/landing/")
             # Lê todos os JSONs da pasta de uma vez
             self.df = self.spark.read.format('json').option('multiline', True).load(path)
+
+            # Criando coluna de registro do arquivo lido
+            self.df = self.df.withColumn('filename', input_file_name())
 
             #Verifica se o DataFrame tem linhas
             if self.df.isEmpty():
