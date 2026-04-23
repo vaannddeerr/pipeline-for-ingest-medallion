@@ -18,7 +18,7 @@ class CreateTableDelta:
                                     .option('multiline',True)
                                     .load(file))
         except:
-              print('Falha ao ler o arquivo, aruivo não encontrado')
+              print('Falha ao ler o arquivo, arquivo não encontrado')
     
     def write_table(self):
         (self.df.write
