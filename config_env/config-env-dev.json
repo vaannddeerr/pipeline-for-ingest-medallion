@@ -1,16 +1,21 @@
 {
-  "name": "Pipeline_ingest",
   "tasks": [
     {
       "task_key": "Task_landing_ingest",
-      "python_file": "notebook/run_landing.py",
-      "parameters": [{"name": "env", "value": "dev"}]
+      "spark_python_task": {
+        "python_file": "file:/Workspace/Users/wsc_2014@live.com/pipeline-for-ingest-medallion/notebook/run_landing.py",
+        "parameters": ["--env", "dev"]
+      }
     },
     {
       "task_key": "Task_bronze_ingest",
-      "python_file": "notebook/run_bronze.py",
       "depends_on": [{"task_key": "Task_landing_ingest"}],
-      "parameters": [{"name": "env", "value": "dev"}]
+      "spark_python_task": {
+        "python_file": "file:/Workspace/Users/wsc_2014@live.com/pipeline-for-ingest-medallion/notebook/run_bronze.py",
+        "parameters": ["--env", "dev"]
+      }
     }
   ]
 }
+
+
