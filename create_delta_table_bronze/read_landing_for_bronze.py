@@ -13,11 +13,12 @@ class CreateTableDelta:
             for arquivo in path:
                 nome = arquivo.name
                 file = nome[:]
-
+                
+                location = f'/Volumes/dev/b_bronze/landing/{file}'
                 self.df = (self.spark.read
                                     .format('json')
                                     .option('multiline',True)
-                                    .load(f'{path}/{file}'))
+                                    .load(location))
                 
             print(f"Dados carregados. Linhas: {self.df.count()}🔝")    
             return self.df
