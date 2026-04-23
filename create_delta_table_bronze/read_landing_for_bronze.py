@@ -24,7 +24,7 @@ class CreateTableDelta:
         (self.df.write
                 .format('delta')
                 .mode('overwrite')
-                .opttion('overwiteSchema', True)
+                .option('overwiteSchema', True)
                 .saveAsTable('b_bronze.tb_dadosabertos'))
 
 
