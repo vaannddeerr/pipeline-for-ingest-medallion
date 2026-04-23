@@ -1,4 +1,5 @@
 from config_spark.spark_dataset_config import spark_session
+from pyspark.dbutils import DBUtils
 
 class CreateTableDelta:
     def __init__(self):
@@ -7,6 +8,7 @@ class CreateTableDelta:
 
     def read_df(self):
         try:
+            dbutils = DBUtils(self.spark)
             path = dbutils.fs.ls("/Volumes/dev/b_bronze/landing/")
             for arquivo in path:
                 tam = arquivo.size
