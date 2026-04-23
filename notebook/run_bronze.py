@@ -1,21 +1,11 @@
 from create_delta_table_bronze.read_landing_for_bronze import CreateTableDelta
+from dataset_config.spark_dataset import get_table_name
 
 def pipeline_bronze():
-    print('Iniciando a leitura para gravação da tabela bronze:')
+    print('Iniciando a leitura para camada bronze:')
+    tablename = get_table_name('bronze')
 
-    catalog = 'dev'
-    print(f'Catalog(UC): {catalog}')
-
-    schema = 'b_bronze'
-    print(f'Database: {schema}')
-
-    table = 'tb_camara_leg'
-    print(f'Delta Table: {table}')
-
-    tablename = f'{catalog}.{schema}.{table}'
-    print(f'Table Name: {tablename}')
-
-    print('')
+    print(f'Executa carga para {tablename}')
     res = CreateTableDelta()
     res.df = res.read_df()
     res.write_table(tablename)

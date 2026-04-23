@@ -1,4 +1,4 @@
-from config_spark.spark_dataset_config import spark_session
+from commons.spark_config import spark_session
 from pyspark.dbutils import DBUtils
 
 
