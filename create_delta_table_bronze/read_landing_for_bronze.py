@@ -28,14 +28,20 @@ class CreateTableDelta:
             print(f"Erro ao ler os dados: {e}")
             raise e # Isso vai parar o Job no Databricks e mostrar o erro real
     
-    def write_table(self, tableName:str):
-        """Grava o DataFrame atual como uma tabela Delta."""
-        if self.df is None:
-            raise ValueError("❌Não há dados carregados para gravar! Use ler_tabela primeiro.")
-        (self.df.write
-                .format('delta')
-                .mode('overwrite')
-                .option('overwiteSchema', True)
-                .saveAsTable(tableName))
+    def write_table(self, tableName: str):
+        try:
+            # Garante que tableName é uma string
+            nome_tabela = str(tableName) 
+            print(f"Tentando salvar na tabela: {nome_tabela}")
+            
+            # Usa o formato padrão do Databricks
+            self.df.write.format("delta") \
+                .mode("append") \
+                .saveAsTable(nome_tabela)
+                
+            print("Sucesso ao gravar!")
+        except Exception as e:
+            print(f"Erro ao gravar na tabela: {e}")
+            raise e
 
 
