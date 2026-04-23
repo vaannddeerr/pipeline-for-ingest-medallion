@@ -1,5 +1,5 @@
 {
-  "name": "Pipeline de Ingestão",
+  "name": "Pipeline_ingest",
   "tasks": [
     {
       "task_key": "Task_landing_ingest",
