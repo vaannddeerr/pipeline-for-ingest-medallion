@@ -19,6 +19,8 @@ class CreateTableDelta:
                                     .format('json')
                                     .option('multiline',True)
                                     .load(file))
+            return self.df
+        
         except:
               print('Falha ao ler o arquivo, arquivo não encontrado')
     
