@@ -1,15 +1,16 @@
 {
-  "name": "Pipeline Medallion - Bronze",
+  "name": "Pipeline de Ingestão",
   "tasks": [
     {
-      "task_key": "Task_bronze",
+      "task_key": "Task_landing_ingest",
+      "python_file": "notebook/run_landing.py",
+      "parameters": [{"name": "env", "value": "stg"}]
+    },
+    {
+      "task_key": "Task_bronze_ingest",
       "python_file": "notebook/run_bronze.py",
-      "parameters": [
-        {
-          "name": "env",
-          "value": "stg"
-        }
-      ]
+      "depends_on": [{"task_key": "Task_landing_ingest"}],
+      "parameters": [{"name": "env", "value": "stg"}]
     }
   ]
 }
