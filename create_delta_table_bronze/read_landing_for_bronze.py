@@ -20,11 +20,14 @@ class CreateTableDelta:
         except:
               print('Falha ao ler o arquivo, arquivo não encontrado')
     
-    def write_table(self):
+    def write_table(self, tableName:str):
+        """Grava o DataFrame atual como uma tabela Delta."""
+        if self.df is None:
+            raise ValueError("❌Não há dados carregados para gravar! Use ler_tabela primeiro.")
         (self.df.write
                 .format('delta')
                 .mode('overwrite')
                 .option('overwiteSchema', True)
-                .saveAsTable('b_bronze.tb_dadosabertos'))
+                .saveAsTable(tableName))
 
 
