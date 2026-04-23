@@ -1,4 +1,12 @@
 {
+  "environments": [
+    {
+      "environment_key": "Default",
+      "spec": {
+        "client": "1"
+      }
+    }
+  ],
   "tasks": [
     {
       "task_key": "Task_landing_ingest",
@@ -6,7 +14,7 @@
         "python_file": "file:/Workspace/Users/wsc_2014@live.com/pipeline-for-ingest-medallion/notebook/run_landing.py",
         "parameters": ["--env", "dev"]
       },
-      "environment_key": "Default" 
+      "environment_key": "Default"
     },
     {
       "task_key": "Task_bronze_ingest",
