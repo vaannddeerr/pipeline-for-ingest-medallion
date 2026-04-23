@@ -1,0 +1,15 @@
+{
+  "name": "Pipeline Medallion - Bronze",
+  "tasks": [
+    {
+      "task_key": "Task_bronze",
+      "python_file": "notebook/run_bronze.py",
+      "parameters": [
+        {
+          "name": "env",
+          "value": "prd"
+        }
+      ]
+    }
+  ]
+}
