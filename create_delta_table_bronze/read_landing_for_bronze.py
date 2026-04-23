@@ -5,13 +5,13 @@ class CreateTableDelta:
     def __init__(self):
         self.df = None
         self.spark = spark_session
+        self.dbutils = DBUtils(self.spark)
 
     def read_df(self):
         try:
-            dbutils = DBUtils(self.spark)
-            path = dbutils.fs.ls("/Volumes/dev/b_bronze/landing/")
-            for arquivo in path:
-                nome = arquivo.name
+            path = self.dbutils.fs.ls("/Volumes/dev/b_bronze/landing/")
+            for file in path:
+                nome = file.name
                 file = nome[:]
                 
                 location = f'/Volumes/dev/b_bronze/landing/{file}'
