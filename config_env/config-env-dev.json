@@ -5,7 +5,8 @@
       "spark_python_task": {
         "python_file": "file:/Workspace/Users/wsc_2014@live.com/pipeline-for-ingest-medallion/notebook/run_landing.py",
         "parameters": ["--env", "dev"]
-      }
+      },
+      "environment_key": "Default" 
     },
     {
       "task_key": "Task_bronze_ingest",
@@ -13,9 +14,8 @@
       "spark_python_task": {
         "python_file": "file:/Workspace/Users/wsc_2014@live.com/pipeline-for-ingest-medallion/notebook/run_bronze.py",
         "parameters": ["--env", "dev"]
-      }
+      },
+      "environment_key": "Default"
     }
   ]
 }
-
-
