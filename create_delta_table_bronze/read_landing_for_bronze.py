@@ -11,14 +11,15 @@ class CreateTableDelta:
             dbutils = DBUtils(self.spark)
             path = dbutils.fs.ls("/Volumes/dev/b_bronze/landing/")
             for arquivo in path:
-                tam = arquivo.size
                 nome = arquivo.name
                 file = nome[:]
 
                 self.df = (self.spark.read
                                     .format('json')
                                     .option('multiline',True)
-                                    .load(file))
+                                    .load(f'{path}/{file}'))
+                
+            print(f"Dados carregados. Linhas: {self.df.count()}🔝")    
             return self.df
         
         except:
