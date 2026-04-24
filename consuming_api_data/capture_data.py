@@ -39,17 +39,17 @@ class CaptureApiData:
                 'gold': 'business'
             },
             'stg': {
-                'bronze': 'landing_stg',
-                'silver': 'staging_area_stg',
-                'gold': 'business_stg'
+                'bronze': 'landing',
+                'silver': 'staging_area',
+                'gold': 'business'
             },
             'prd': {
-                'bronze': 'landing_prod',
-                'silver': 'staging_area_prod',
-                'gold': 'business_prod'
+                'bronze': 'landing',
+                'silver': 'staging_area',
+                'gold': 'business'
             }
         }
-        
+
         # Dicionário de prefixos (pastas de camada)
         prefix_map = {
             'bronze': 'b_bronze',
