@@ -24,7 +24,7 @@ def get_path_and_table_name(env:str, layer:str):
 
         # 3. Montagem das strings (sem usar o dicionário dentro dos ifs)
         # Exemplo: /volume/dev/b_bronze
-        path = f"/Volume/{env_path}/{prefix}/{folder}"
+        path = f"/Volumes/{env_path}/{prefix}/{folder}"
 
 
         # Exemplo: dev.b_bronze.b_camara_leg
