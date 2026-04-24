@@ -7,12 +7,12 @@ dbutils = DBUtils(spark)
 
 # CRIAÇÃO DO WIDGET
 # Isso força a criação de um menu dropdown no Databricks com os ambientes válidos.
-try:
-    dbutils.widgets.dropdown("env", "dev", ["dev", "homolog", "prod"])
-    CURRENT_ENV = dbutils.widgets.get("env")
-except:
+# try:
+#     dbutils.widgets.dropdown("env", "dev", ["dev", "homolog", "prod"])
+#     CURRENT_ENV = dbutils.widgets.get("env")
+# except:
     # Se rodar localmente no VS Code (sem dbutils), cai aqui e assume 'dev'
-    CURRENT_ENV = 'dev'
+    # CURRENT_ENV = 'dev'
     
 # Define o ambiente (busca no sistema, padrão é 'dev')
 # Para mudar em produção, basta definir a variável de ambiente ENV=prod
