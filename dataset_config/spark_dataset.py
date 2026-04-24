@@ -16,7 +16,7 @@ except:
     
 # Define o ambiente (busca no sistema, padrão é 'dev')
 # Para mudar em produção, basta definir a variável de ambiente ENV=prod
-CURRENT_ENV = os.getenv('ENV', 'stg')
+CURRENT_ENV = os.getenv('ENV', 'prd')
 
 # Configurações por ambiente (Base de dados / Catálogos)
 # Se você tiver regras diferentes para cada um, adicione aqui
@@ -27,7 +27,7 @@ CONFIG_BY_ENV = {
 }
 
 # Validação simples
-env_cfg = CONFIG_BY_ENV.get(CURRENT_ENV, CONFIG_BY_ENV['stg'])
+env_cfg = CONFIG_BY_ENV.get(CURRENT_ENV, CONFIG_BY_ENV['prd'])
 
 # Estrutura centralizada dos datasets
 DATA_PIPELINE_CONFIG = {
