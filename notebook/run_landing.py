@@ -14,7 +14,7 @@ def executa_pipeline():
 
     menager.path = get_path_and_table_name(env='dev',layer='bronze')
 
-    menager.save_out(menager.path, resultado, menager.path)
+    menager.save_out(menager.path, resultado)
     print(f'✔️Arquivo salvo com sucesso')
 
 
