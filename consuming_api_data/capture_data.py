@@ -2,7 +2,8 @@
 import requests
 import json
 from datetime import datetime, timedelta
-
+import os
+from dataset_config.spark_dataset import CURRENT_ENV
 
 
 class CaptureApiData:
@@ -12,6 +13,7 @@ class CaptureApiData:
         self.error = None
         self.path = None
         self.df = None
+        self.env = CURRENT_ENV
 
     def capture_api(self):
         try:
@@ -37,7 +39,8 @@ class CaptureApiData:
         path = f'{archive}'
 
         file_path = 'dadosabertos_'+ path +'.json'
-        self.path = f'/Volumes/dev/b_bronze/landing/{file_path}'
+        
+        self.path = f'/Volumes/{self.env}/b_bronze/landing/{file_path}'
 
         if response:
             with open(self.path,'w', encoding='utf-8') as outputResponse:
