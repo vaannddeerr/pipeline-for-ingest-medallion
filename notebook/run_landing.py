@@ -12,7 +12,7 @@ def executa_pipeline():
     resultado = menager.capture_api()
     print(f'📖Resultado da solicitação:')
 
-    menager.path = get_path_and_table_name(env='dev',layer='bronze')
+    menager.path,_ = get_path_and_table_name(env='dev',layer='bronze')
 
     menager.save_out(menager.path, resultado)
     print(f'✔️Arquivo salvo com sucesso')
