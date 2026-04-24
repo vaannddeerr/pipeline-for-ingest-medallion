@@ -32,13 +32,13 @@ class CreateTableDelta:
     def write_table(self, tableName: str):
         try:
             # Garante que tableName é uma string
-            nome_tabela = str(tableName) 
-            print(f"Tentando salvar na tabela: {nome_tabela}")
+            
+            print(f"Tentando salvar na tabela: {tableName}")
             
             # Usa o formato padrão do Databricks
             self.df.write.format("delta") \
-                .mode("append") \
-                .saveAsTable(nome_tabela)
+                .mode("overwrite") \
+                .saveAsTable(tableName)
                 
             print("Sucesso ao gravar!")
         except Exception as e:
