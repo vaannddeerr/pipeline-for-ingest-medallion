@@ -34,17 +34,17 @@ DATA_PIPELINE_CONFIG = {
     "bronze": {
         "catalog": env_cfg['catalog'],
         "schema": f"{env_cfg['schema_prefix']}bronze",
-        "table": "tb_camara_leg"
+        "table": "b_camara_leg"
     },
     "silver": {
         "catalog": env_cfg['catalog'],
         "schema": f"{env_cfg['schema_prefix']}silver",
-        "table": "tb_camara_leg"
+        "table": "s_camara_leg"
     },
     "gold": {
         "catalog": env_cfg['catalog'],
         "schema": f"{env_cfg['schema_prefix']}gold",
-        "table": "tb_camara_leg"
+        "table": "g_camara_leg"
     }
 }
 
