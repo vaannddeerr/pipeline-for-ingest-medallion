@@ -49,11 +49,18 @@ class CaptureApiData:
                 'gold': 'business_prod'
             }
         }
+        # Dicionário de prefixos (pastas de camada)
+        prefix_map = {
+            'bronze': 'b_bronze',
+            'silver': 's_silver',
+            'gold': 'g_gold'
+        }
 
         # 1. Recupera o dicionário do ambiente solicitado
         # 2. Recupera a pasta da camada solicitada
         try:
             folder_name = config_map[env][layer]
+            prefixo = prefix_map[layer]
         except KeyError:
             raise ValueError(f"Combinação de ambiente '{env}' ou camada '{layer}' inválida.")
 
@@ -68,7 +75,7 @@ class CaptureApiData:
         file_path = 'dadosabertos_'+ path +'.json'
 
         # Monta o caminho final
-        self.path = f'/Volumes/{env}/b_bronze/{folder_name}/{file_path}'
+        self.path = f'/Volumes/{env}/{prefixo}/{folder_name}/{file_path}'
             
 
         if response:
