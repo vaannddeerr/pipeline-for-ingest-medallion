@@ -6,11 +6,12 @@ class CreateTableDelta:
     def __init__(self):
         self.df = None
         self.spark = spark_session()
+     
         
 
-    def read_df(self):
+    def read_df(self, path:str):
         try:
-            path = "/Volumes/dev/b_bronze/landing/"
+            
             # Lê todos os JSONs da pasta de uma vez
             self.df = self.spark.read.format('json').option('multiline', True).load(path)
 
