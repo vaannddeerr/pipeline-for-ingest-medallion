@@ -1,57 +1,32 @@
-import os
-from pyspark.dbutils import DBUtils
-from commons.spark_config import spark_session
+def get_path_and_table_name(env:str, layer:str):
+              
+        # 1. Lógica Condicional (Ifs) para definir os componentes
+        if   env == 'dev':
+             env_path = 'dev'
+        elif env == 'stg':
+             env_path = 'stg'
+        elif env == 'prd':
+             env_path = 'prd'
 
-spark = spark_session()
-dbutils = DBUtils(spark)
+        # 2. Definição da pasta e prefixo da camada
+        if   layer == 'bronze':
+             folder = 'landing'
+             prefix = 'b_bronze'
+             table_name = 'b_camara_leg'
+        elif layer == 'silver':
+             folder = 'staging_area'
+             prefix = 's_silver'
+             table_name = 's_camara_leg'
+        elif layer == 'gold':
+             folder = 'business'
+             prefix = 'g_gold'
+             table_name = 'g_camara_leg'
 
-# CRIAÇÃO DO WIDGET
-# Isso força a criação de um menu dropdown no Databricks com os ambientes válidos.
-# try:
-#     dbutils.widgets.dropdown("env", "dev", ["dev", "homolog", "prod"])
-#     CURRENT_ENV = dbutils.widgets.get("env")
-# except:
-    # Se rodar localmente no VS Code (sem dbutils), cai aqui e assume 'dev'
-    # CURRENT_ENV = 'dev'
-    
-# Define o ambiente (busca no sistema, padrão é 'dev')
-# Para mudar em produção, basta definir a variável de ambiente ENV=prod
-CURRENT_ENV = os.getenv('ENV', 'prd')
+        # 3. Montagem das strings (sem usar o dicionário dentro dos ifs)
+        # Exemplo: /volume/dev/b_bronze
+        path = f"/volume/{env_path}/{prefix}/{folder}"
 
-# Configurações por ambiente (Base de dados / Catálogos)
-# Se você tiver regras diferentes para cada um, adicione aqui
-CONFIG_BY_ENV = {
-    'dev': {'catalog': 'dev', 'schema_prefix': 'b_'},
-    'stg': {'catalog': 'stg', 'schema_prefix': 'b_'},
-    'prd': {'catalog': 'prd', 'schema_prefix': 'b_'}
-}
+        # Exemplo: dev.b_bronze.b_camara_leg
+        tablename = f"{env_path}.{prefix}.{table_name}"
 
-# Validação simples
-env_cfg = CONFIG_BY_ENV.get(CURRENT_ENV, CONFIG_BY_ENV['prd'])
-
-# Estrutura centralizada dos datasets
-DATA_PIPELINE_CONFIG = {
-    "bronze": {
-        "catalog": env_cfg['catalog'],
-        "schema": f"{env_cfg['schema_prefix']}bronze",
-        "table": "b_camara_leg"
-    },
-    "silver": {
-        "catalog": env_cfg['catalog'],
-        "schema": f"{env_cfg['schema_prefix']}silver",
-        "table": "s_camara_leg"
-    },
-    "gold": {
-        "catalog": env_cfg['catalog'],
-        "schema": f"{env_cfg['schema_prefix']}gold",
-        "table": "g_camara_leg"
-    }
-}
-
-# Montagem da string
-def get_table_name(layer):
-    if layer not in DATA_PIPELINE_CONFIG:
-        raise ValueError(f"Camada '{layer}' não encontrada na configuração!")
-    
-    c = DATA_PIPELINE_CONFIG[layer]
-    return f"{c['catalog']}.{c['schema']}.{c['table']}"
+        return path, tablename

@@ -2,7 +2,7 @@
 import requests
 import json
 from datetime import datetime, timedelta
-import os
+
 
 
 
@@ -29,41 +29,7 @@ class CaptureApiData:
             return None
             print(f"Erro na comunicação com a API: {self.error}")
 
-    def save_out(self, path:str, response:str, env: str, layer: str):
-
-        # Dicionário de configuração centralizado
-        config_map = {
-            'dev': {
-                'bronze': 'landing',
-                'silver': 'staging_area',
-                'gold': 'business'
-            },
-            'stg': {
-                'bronze': 'landing',
-                'silver': 'staging_area',
-                'gold': 'business'
-            },
-            'prd': {
-                'bronze': 'landing',
-                'silver': 'staging_area',
-                'gold': 'business'
-            }
-        }
-
-        # Dicionário de prefixos (pastas de camada)
-        prefix_map = {
-            'bronze': 'b_bronze',
-            'silver': 's_silver',
-            'gold': 'g_gold'
-        }
-
-        # 1. Recupera o dicionário do ambiente solicitado
-        # 2. Recupera a pasta da camada solicitada
-        try:
-            folder_name = config_map[env][layer]
-            prefixo = prefix_map[layer]
-        except KeyError:
-            raise ValueError(f"Combinação de ambiente '{env}' ou camada '{layer}' inválida.")
+    def save_out(self, path:str, response:str):
 
         # Monta o nomemclatura do arquivo pegando a data atual
         archive = datetime.now() + timedelta(hours=-3)
@@ -73,10 +39,7 @@ class CaptureApiData:
 
         # Monta o caminho do arquivo
         path = f'{archive}'
-        file_path = 'dadosabertos_'+ path +'.json'
-
-        # Monta o caminho final
-        self.path = f'/Volumes/{env}/{prefixo}/{folder_name}/{file_path}'
+        self.path = f'{self.path}/'+'dadosabertos_'+ path +'.json'
             
 
         if response:

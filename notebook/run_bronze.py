@@ -1,9 +1,9 @@
 from create_delta_table_bronze.read_landing_for_bronze import CreateTableDelta
-from dataset_config.spark_dataset import get_table_name
+from dataset_config.spark_dataset import get_path_and_table_name
 
 def pipeline_bronze():
     print('Iniciando a leitura para camada bronze:')
-    tablename = get_table_name('silver')
+    tablename = get_path_and_table_name(env='dev',layer='bronze')
 
     print(f'Executa carga para {tablename}')
     res = CreateTableDelta()

@@ -1,4 +1,5 @@
 from consuming_api_data.capture_data import CaptureApiData
+from dataset_config.spark_dataset import get_path_and_table_name
 
 
 
@@ -11,7 +12,9 @@ def executa_pipeline():
     resultado = menager.capture_api()
     print(f'📖Resultado da solicitação:')
 
-    menager.save_out(menager.path, resultado, env='prd',layer='silver')
+    menager.path = get_path_and_table_name(env='dev',layer='bronze')
+
+    menager.save_out(menager.path, resultado, menager.path)
     print(f'✔️Arquivo salvo com sucesso')
 
 
