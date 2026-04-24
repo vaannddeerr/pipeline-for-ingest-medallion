@@ -21,9 +21,9 @@ CURRENT_ENV = os.getenv('ENV', 'prd')
 # Configurações por ambiente (Base de dados / Catálogos)
 # Se você tiver regras diferentes para cada um, adicione aqui
 CONFIG_BY_ENV = {
-    'dev': {'catalog': 'dev', 'schema_prefix': 's_'},
+    'dev': {'catalog': 'dev', 'schema_prefix': 'b_'},
     'stg': {'catalog': 'stg', 'schema_prefix': 'b_'},
-    'prd': {'catalog': 'prd', 'schema_prefix': 'p_'}
+    'prd': {'catalog': 'prd', 'schema_prefix': 'b_'}
 }
 
 # Validação simples
