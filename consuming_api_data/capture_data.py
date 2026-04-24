@@ -3,7 +3,7 @@ import requests
 import json
 from datetime import datetime, timedelta
 import os
-from dataset_config.spark_dataset import CURRENT_ENV
+
 
 
 class CaptureApiData:
@@ -13,7 +13,7 @@ class CaptureApiData:
         self.error = None
         self.path = None
         self.df = None
-        self.env = CURRENT_ENV
+        
 
     def capture_api(self):
         try:
@@ -29,18 +29,47 @@ class CaptureApiData:
             return None
             print(f"Erro na comunicação com a API: {self.error}")
 
-    def save_out(self, path:str, response:str):
+    def save_out(self, path:str, response:str, env: str, layer: str):
 
+        # Dicionário de configuração centralizado
+        config_map = {
+            'dev': {
+                'bronze': 'landing',
+                'silver': 'staging_area',
+                'gold': 'business'
+            },
+            'stg': {
+                'bronze': 'landing_stg',
+                'silver': 'staging_area_stg',
+                'gold': 'business_stg'
+            },
+            'prd': {
+                'bronze': 'landing_prod',
+                'silver': 'staging_area_prod',
+                'gold': 'business_prod'
+            }
+        }
+
+        # 1. Recupera o dicionário do ambiente solicitado
+        # 2. Recupera a pasta da camada solicitada
+        try:
+            folder_name = config_map[env][layer]
+        except KeyError:
+            raise ValueError(f"Combinação de ambiente '{env}' ou camada '{layer}' inválida.")
+
+        # Monta o nomemclatura do arquivo pegando a data atual
         archive = datetime.now() + timedelta(hours=-3)
         archive = str(archive)
         archive = archive[0:10]
         archive = archive.replace("-", "")
 
+        # Monta o caminho do arquivo
         path = f'{archive}'
-
         file_path = 'dadosabertos_'+ path +'.json'
-        
-        self.path = f'/Volumes/{self.env}/b_bronze/landing/{file_path}'
+
+        # Monta o caminho final
+        self.path = f'/Volumes/{env}/b_bronze/{folder_name}/{file_path}'
+            
 
         if response:
             with open(self.path,'w', encoding='utf-8') as outputResponse:
