@@ -11,7 +11,7 @@ def executa_pipeline():
     resultado = menager.capture_api()
     print(f'📖Resultado da solicitação:')
 
-    menager.save_out(menager.path, resultado)
+    menager.save_out(menager.path, resultado, env='prd',layer='silver')
     print(f'✔️Arquivo salvo com sucesso')
 
 

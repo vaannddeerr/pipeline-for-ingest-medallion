@@ -49,6 +49,7 @@ class CaptureApiData:
                 'gold': 'business_prod'
             }
         }
+        
         # Dicionário de prefixos (pastas de camada)
         prefix_map = {
             'bronze': 'b_bronze',
