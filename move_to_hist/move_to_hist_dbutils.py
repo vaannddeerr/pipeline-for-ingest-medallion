@@ -8,9 +8,13 @@ def move_to_hist():
     dbutils = DBUtils(spark)
 
     path,_ = get_path_and_table_name(env='dev',layer='bronze')
-    print(path)
-    destino = '/Volumes/dev/b_bronze/move_to_hist/'
-    print(destino)
+
+    origem = f'{path}/'
+    print(f'Caminho origem: {origem}/')
+
+    destino = f'{path}/move_to_hist/'
+    print(f'Caminho destino: {destino}/')
+
     dbutils.fs.mkdirs(destino)
     return dbutils.fs.mv(origem, destino,recurse=True)
 
