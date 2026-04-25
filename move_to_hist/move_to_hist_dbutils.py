@@ -12,6 +12,7 @@ def move_to_hist():
     path = path[:-26]
     origem = path +'*'
     destino = path_detino +'move_to_hist/'
+    dbutils.fs.mkdirs(destino)
     return dbutils.fs.mv(origem, destino,recurse=True)
 
 move_to_hist()
