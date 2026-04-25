@@ -3,27 +3,28 @@ from commons.spark_config import spark_session
 from dataset_config.spark_dataset import get_path_and_table_name
 import os
 
-# Exemplo: o path vem dinamicamente da sua função
-# Ex: '/Volumes/dev/b_bronze/landing/dadosabertos.json'
-path,_ = get_path_and_table_name(env='dev', layer='bronze') 
+# Exemplo de path: '/Volumes/dev/b_bronze/landing/dadosabertos.json'
+path,_ = get_path_and_table_name(env='dev', layer='bronze')
 
-# 1. Obtenha o diretório onde o arquivo está (o 'landing')
-dir_atual = os.path.dirname(path) 
+# 1. Obtém a pasta pai: '/Volumes/dev/b_bronze/landing'
+dir_atual = os.path.dirname(path)
 
-# 2. Obtenha o diretório pai (o 'b_bronze')
-# Isso garante que você está dentro do volume correto, não importa o nome do volume
+# 2. Obtém a base do volume: '/Volumes/dev/b_bronze'
+# Isso garante que estamos dentro do schema 'b_bronze'
 base_volume = os.path.dirname(dir_atual)
 
-# 3. Construa o destino dinamicamente
-# Isso mantém a estrutura: /Volumes/dev/b_bronze/move_to_hist/
-destino = os.path.join(base_volume, 'move_to_hist/')
+# 3. Define o destino explicitamente dentro do volume b_bronze
+# Isso resulta em: '/Volumes/dev/b_bronze/move_to_hist/'
+destino = os.path.join(base_volume, 'move_to_hist')
 
-# Agora seu código é 100% dinâmico e respeita a estrutura do Databricks!
+# 4. CRÍTICO: Certifique-se de que o caminho termine com '/' para o dbutils
+destino_path = destino + '/'
+
+# 5. Executa
 spark = spark_session()
 dbutils = DBUtils(spark)
-dbutils.fs.mkdirs(destino)
-dbutils.fs.mv(path + '*', destino, recurse=True)
-
+dbutils.fs.mkdirs(destino_path)
+dbutils.fs.mv(path + '*', destino_path, recurse=True)
 
 # def move_to_hist():
 #     spark = spark_session()
