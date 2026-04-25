@@ -9,7 +9,7 @@ def move_to_hist():
 
     path,_ = get_path_and_table_name(env='dev',layer='bronze')
     print(path)
-    destino = '/olumes/dev/b_bronze/move_to_hist/'
+    destino = '/Volumes/dev/b_bronze/move_to_hist/'
     print(destino)
     dbutils.fs.mkdirs(destino)
     return dbutils.fs.mv(origem, destino,recurse=True)
