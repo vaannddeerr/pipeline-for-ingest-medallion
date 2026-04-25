@@ -1,0 +1,21 @@
+{
+  "tasks": [
+    {
+      "task_key": "Task_landing_ingest",
+      "spark_python_task": {
+        "python_file": "file:/Workspace/Users/wsc_2014@live.com/pipeline-for-ingest-medallion/notebook/run_landing.py",
+        "parameters": ["--env", "stg"]
+      }
+    },
+    {
+      "task_key": "Task_bronze_ingest",
+      "depends_on": [{"task_key": "Task_landing_ingest"}],
+      "spark_python_task": {
+        "python_file": "file:/Workspace/Users/wsc_2014@live.com/pipeline-for-ingest-medallion/notebook/run_bronze.py",
+        "parameters": ["--env", "stg"]
+      }
+    }
+  ]
+}
+
+
