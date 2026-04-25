@@ -12,16 +12,24 @@ def move_to_hist():
     origem = f'{path}/'
     destino = f'{path}/move_to_hist/'
     
-    # Cria a pasta de destino se ela ainda não existir
-    dbutils.fs.mkdirs(destino)
+    print(f"DEBUG - Origem: {origem}")
+    print(f"DEBUG - Destino: {destino}")
     
-    # Lista todos os conteúdos da pasta de origem
     arquivos = dbutils.fs.ls(origem)
     
     for arquivo in arquivos:
-        # 1. Verifica se o nome NÃO é 'move_to_hist/' para evitar mover a pasta de destino pra dentro dela mesma
-        # 2. Verifica se o nome NÃO é um diretório de metadados do Spark (como _delta_log ou _temporary)
-        if arquivo.name != "move_to_hist/" and not arquivo.name.startswith("_"):
-            if arquivo.name in arquivo.name.endswith(".json"):
-                dbutils.fs.mv(arquivo.path, destino + arquivo.name)
-                print(f"Arquivo {arquivo.name} movido com sucesso.")
+        print(f"DEBUG - Analisando: {arquivo.name}")
+        
+        # Filtros de segurança
+        if (arquivo.name != "move_to_hist/" and 
+            not arquivo.name.startswith("_") and 
+            arquivo.name.endswith(".json")):
+            
+            caminho_final = destino + arquivo.name
+            print(f"DEBUG - Movendo de {arquivo.path} para {caminho_final}")
+            
+            dbutils.fs.mv(arquivo.path, caminho_final)
+        else:
+            print(f"DEBUG - Ignorado: {arquivo.name}")
+
+move_to_hist()
